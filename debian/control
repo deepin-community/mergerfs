@@ -1,15 +1,34 @@
-Source: template-repository
-Section: unknown
+Source: mergerfs
+Section: utils
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Ritesh Raj Sarraf <rrs@debian.org>
+Build-Depends: debhelper-compat (= 13), dpkg-dev (>= 1.16.1~),
+ libfuse-dev,
+ libattr1-dev
+Standards-Version: 4.5.0
+Homepage: https://github.com/trapexit/mergerfs
+Vcs-Git: https://salsa.debian.org/debian/mergerfs.git
+Vcs-Browser: https://salsa.debian.org/debian/mergerfs
 
-Package: template-repository
+Package: mergerfs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ libfuse2,
+ fuse
+Description: another FUSE union filesystem
+ mergerfs is a union filesystem geared towards simplifying storage and
+ management of files across numerous commodity storage devices. It is
+ similar to mhddfs, unionfs, and aufs.
+ .
+ Some salient features include
+  * Runs in userspace (FUSE)
+  * Configurable behaviors
+  * Support for extended attributes (xattrs)
+  * Support for file attributes (chattr)
+  * Runtime configurable (via xattrs)
+  * Safe to run as root
+  * Opportunistic credential caching
+  * Works with heterogeneous filesystem types
+  * Handling of writes to full drives
+  * Handles pool of readonly and read/write drives

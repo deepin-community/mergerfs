@@ -1,0 +1,29 @@
+From: Ritesh Raj Sarraf <rrs@debian.org>
+Date: Wed, 7 Oct 2020 13:26:47 +0530
+Subject: cross
+
+---
+ libfuse/Makefile | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/libfuse/Makefile
++++ b/libfuse/Makefile
+@@ -24,6 +24,7 @@
+ SBINDIR       = /sbin
+ MANDIR        = $(DATAROOTDIR)/man
+ MAN1DIR       = $(MANDIR)/man1
++STRIP        ?= strip
+ 
+ INSTALLBINDIR  = $(DESTDIR)$(BINDIR)
+ INSTALLSBINDIR = $(DESTDIR)$(SBINDIR)
+@@ -107,8 +108,8 @@
+ distclean: clean
+ 
+ strip:
+-	strip --strip-all build/mount.mergerfs
+-	strip --strip-all build/mergerfs-fusermount
++	$(STRIP) --strip-all build/mount.mergerfs
++	$(STRIP) --strip-all build/mergerfs-fusermount
+ 
+ install-utils: mergerfs-fusermount mount.mergerfs strip
+ 	install -D build/mergerfs-fusermount "$(INSTALLBINDIR)/mergerfs-fusermount"

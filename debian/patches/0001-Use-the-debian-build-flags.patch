@@ -1,0 +1,39 @@
+From: Ritesh Raj Sarraf <rrs@debian.org>
+Date: Sun, 22 Mar 2020 11:36:38 +0530
+Subject: Use the debian build flags
+
+The upstream Makefile was not retaining the build flags provided by the
+Debian build system. It was overriding it. This patch ensures that the
+build flags from the Debian build system are in use
+---
+ Makefile | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/Makefile
++++ b/Makefile
+@@ -57,6 +57,9 @@
+ LTO_FLAGS :=
+ endif
+ 
++HARDENING_CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS)
++HARDENING_LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
++
+ SRC	    = $(wildcard src/*.cpp)
+ OBJS        = $(SRC:src/%.cpp=build/.src/%.o)
+ DEPS        = $(SRC:src/%.cpp=build/.src/%.d)
+@@ -74,6 +77,7 @@
+               -std=c++11 \
+               $(STATIC_FLAGS) \
+               $(LTO_FLAGS) \
++	      $(HARDENING_CXXFLAGS) \
+               -Wall \
+               -Wno-unused-result \
+               -MMD
+@@ -90,6 +94,7 @@
+ 
+ LDFLAGS := \
+     ${LDFLAGS} \
++    $(HARDENING_LDFLAGS) \
+     -pthread \
+     -lrt
+ 
