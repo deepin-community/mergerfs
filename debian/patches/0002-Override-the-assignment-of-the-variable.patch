@@ -1,0 +1,29 @@
+From: Ritesh Raj Sarraf <rrs@debian.org>
+Date: Sun, 22 Mar 2020 12:28:14 +0530
+Subject: Override the assignment of the variable
+
+Because we set it in d/rules and do not to call git for the cleaning
+step
+---
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index a779774..65c38d6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -29,12 +29,13 @@ RPMBUILD  = rpmbuild
+ GIT2DEBCL = ./tools/git2debcl
+ PKGCONFIG = pkg-config
+ 
+-GIT_REPO = 0
++ifneq ($(GIT_REPO),0)
+ ifneq ($(shell $(GIT) --version 2> /dev/null),)
+ ifeq  ($(shell test -e .git; echo $$?),0)
+ GIT_REPO = 1
+ endif
+ endif
++endif
+ 
+ USE_XATTR = 1
+ UGID_USE_RWLOCK = 0

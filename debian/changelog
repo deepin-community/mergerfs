@@ -1,5 +1,183 @@
-template-repository (1.0-1) unstable; urgency=medium
+mergerfs (2.33.5-1) unstable; urgency=medium
 
-  * Initial release
+  * New upstream version 2.33.5
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 02 Sep 2022 17:00:28 +0530
+
+mergerfs (2.33.3-1) unstable; urgency=medium
+
+  * New upstream version 2.33.3
+  * Refresh patches
+  * Update copyright year
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Wed, 16 Feb 2022 13:51:06 +0530
+
+mergerfs (2.32.6-1) unstable; urgency=medium
+
+  * New upstream version 2.32.6
+  * Bump debhelper compatibility to 13
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 17 Aug 2021 15:45:51 +0530
+
+mergerfs (2.31.0-1) unstable; urgency=medium
+
+  * New upstream version 2.31.0
+  * Refresh patches
+  * Make patches pq clean
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Wed, 07 Oct 2020 13:28:41 +0530
+
+mergerfs (2.29.0-2) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Fix FTCBFS: (Closes: #955285)
+    + cross.patch: Make strip substitutable in libfuse/Makefile.
+    + Override strip for make install.
+    + export CC as make install rebuilds parts.
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 07 Apr 2020 12:25:24 +0530
+
+mergerfs (2.29.0-1) unstable; urgency=medium
+
+  * New upstream version 2.29.0
+  * Bump Standards Version to 4.5.0
+  * Add expiciti dependency to debhelper 12
+  * Set DEBUG=1 in build config to generate debug symbols
+  * Disable git cleaning during build
+  * Add patch to better apply the hardening build flags
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Sun, 22 Mar 2020 18:47:17 +0530
+
+mergerfs (2.28.1-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/copyright: Use https protocol in Format field
+  * d/copyright: Use https protocol in Format field
+
+  [ Ritesh Raj Sarraf ]
+  * New upstream version 2.28.1
+  * Drop patches. Not needed anymore
+  * Drop autoreconf and autoconf invocation
+  * Bump debhelper compatibility to 12
+  * Update Standards Version to 4.3.0
+  * Use https in homepage field
+  * Delete all obsolete patches
+  * Drop build dependency on dh-autoreconf and pkg-config
+  * Drop --parallel as it is enabed by default
+  * Fix d/copyright with LGPL license header
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Mon, 15 Jul 2019 11:46:20 +0530
+
+mergerfs (2.24.2-4) unstable; urgency=medium
+
+  * Fix FTCBFS. Let dh_auto_configure pass --host to libfuse/configure.
+    Thanks to Helmut Grohne (Closes: #913842)
+  * Filter out the .gitignore file
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 20 Nov 2018 19:23:28 +0530
+
+mergerfs (2.24.2-3) unstable; urgency=medium
+
+  * Switch project hosting to Salsa
+  * Add explicit dependency on fuse (Closes: #905502)
+  * Add 'use_ino' into example fstab mount options
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 18 Sep 2018 12:02:47 +0545
+
+mergerfs (2.24.2-2) unstable; urgency=medium
+
+  * Upload to Unstable
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 18 May 2018 12:22:12 +0545
+
+mergerfs (2.24.2-1) experimental; urgency=medium
+
+  * New upstream version 2.24.2
+  * Refresh patches debian/patches/clean-makefile.patch
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 01 May 2018 09:25:55 +0545
+
+mergerfs (2.23.1-1) experimental; urgency=medium
+
+  * Update d/copyright to reflect license for embedded libfuse
+  * New upstream version 2.23.1
+  * Update patche clean-makefile.patch
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 28 Dec 2017 19:17:41 +0530
+
+mergerfs (2.23.0+dfsg1-1) experimental; urgency=medium
+
+  * New upstream version 2.23.0+dfsg1
+  * Add experimental's gbp config
+  * Refresh patches
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 29 Sep 2017 22:33:45 +0545
+
+mergerfs (2.21.0-1) unstable; urgency=medium
+
+  * New upstream version 2.21.0
+  * Enable faster builds
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 20 Jun 2017 12:42:59 +0545
+
+mergerfs (2.19.0-1) experimental; urgency=medium
+
+  * New upstream version 2.19.0
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Mon, 20 Mar 2017 17:27:16 +0530
+
+mergerfs (2.18.0-1) unstable; urgency=medium
+
+  * [50aeea4] New upstream version 2.18.0
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Wed, 21 Dec 2016 23:00:20 +0530
+
+mergerfs (2.17.0-2) unstable; urgency=medium
+
+  * [420adc6] Add patch to ensure binary has proper version information
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Sat, 10 Dec 2016 16:35:51 +0530
+
+mergerfs (2.17.0-1) unstable; urgency=medium
+
+  * [08e6aa5] New upstream version 2.17.0
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 08 Dec 2016 23:29:34 +0530
+
+mergerfs (2.16.1-1) unstable; urgency=medium
+
+  * [cdc8ebd] New upstream version 2.16.1
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 29 Sep 2016 22:32:43 +0530
+
+mergerfs (2.16.0-1) unstable; urgency=medium
+
+  * [05be9d6] New upstream version 2.16.0
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Wed, 14 Sep 2016 20:37:15 +0530
+
+mergerfs (2.15.0-1) unstable; urgency=medium
+
+  * [a668581] Add README.Debian to explain tmpfs on /tmp use case
+  * [7661f71] Add fuse's default_permissions option to make it behave
+    more in line with standard file systems
+  * [a75cc49] Imported Upstream version 2.15.0
+  * [ad87171] Refine debian/copyright file
+  * [36db803] Add patch to avoid upstream's gitignore
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 26 Aug 2016 15:34:50 +0530
+
+mergerfs (2.14.0-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #832443)
+  * [8f00ca2] Imported Upstream version 2.14.0
+  * [3329c8d] Add initial debian/ work
+  * [8289526] Add source packaging format
+  * [bc4964d] Add patch to disable (useless) dist-clean
+  * [0e9cb85] Enable hardening
+  * [6d0aada] Update Makefile to include hardening flags
+  * [52929c4] Add Vcs headers
+  * [0f5eac0] Fix indentation of extended description
+  * [fe1d768] Fix spelling error in package description
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Tue, 26 Jul 2016 13:54:30 +0530
