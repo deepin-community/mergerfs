@@ -23,4 +23,4 @@ override_dh_autoreconf:
 	# Because there's no auto* files shipped anymore
 
 override_dh_auto_install:
-	$(MAKE) DESTDIR=$(CURDIR)/debian/mergerfs PREFIX=/usr install STRIP=true
+	$(MAKE) DESTDIR=$(CURDIR)/debian/mergerfs PREFIX=/usr SBINDIR=/usr/sbin install STRIP=true

@@ -13,7 +13,7 @@ License: ISC
 
 Files: libfuse/*
 Copyright: Nikolaus Rath <Nikolaus@rath.org>
-	    Miklos Szeredi <miklos@szeredi.hu>
+ 	    Miklos Szeredi <miklos@szeredi.hu>
 License: LGPL-2
 
 License: LGPL-2

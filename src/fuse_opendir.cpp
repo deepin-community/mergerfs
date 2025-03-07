@@ -30,6 +30,8 @@ namespace FUSE
 
     ffi_->fh = reinterpret_cast<uint64_t>(new DirInfo(fusepath_));
 
+    ffi_->noflush = true;
+
     if(cfg->cache_readdir)
       {
         ffi_->keep_cache    = 1;

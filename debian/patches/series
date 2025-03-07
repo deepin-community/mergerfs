@@ -1,3 +1,5 @@
+use-correct-atomic-lib.patch
 0001-Use-the-debian-build-flags.patch
 0002-Override-the-assignment-of-the-variable.patch
 cross.patch
+disable-preload.patch

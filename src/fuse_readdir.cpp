@@ -16,35 +16,95 @@
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-#include "fuse_readdir_posix.hpp"
-#include "fuse_readdir_linux.hpp"
+#include "fuse_readdir.hpp"
 
 #include "config.hpp"
-#include "dirinfo.hpp"
-#include "rwlock.hpp"
-#include "ugid.hpp"
+#include "fuse_readdir_factory.hpp"
 
-#include "fuse.h"
+/*
+  The _initialized stuff is not pretty but easiest way to deal with
+  the fact that mergerfs is doing arg parsing and setting up of things
+  (including thread pools) before the daemonizing
+ */
 
-
-namespace FUSE
+int
+FUSE::readdir(const fuse_file_info_t *ffi_,
+              fuse_dirents_t         *buf_)
 {
-  int
-  readdir(const fuse_file_info_t *ffi_,
-          fuse_dirents_t         *buf_)
-  {
-    Config::Read cfg;
-    DirInfo            *di = reinterpret_cast<DirInfo*>(ffi_->fh);
-    const fuse_context *fc = fuse_get_context();
-    const ugid::Set     ugid(fc->uid,fc->gid);
+  Config::Write cfg;
 
-    switch(cfg->readdir)
+  return cfg->readdir(ffi_,buf_);
+}
+
+FUSE::ReadDir::ReadDir(std::string const s_)
+  : _initialized(false)
+{
+  from_string(s_);
+  if(_initialized)
+    assert(_readdir);
+}
+
+std::string
+FUSE::ReadDir::to_string() const
+{
+  std::lock_guard<std::mutex> lg(_mutex);
+
+  return _type;
+}
+
+void
+FUSE::ReadDir::initialize()
+{
+  _initialized = true;
+  from_string(_type);
+}
+
+int
+FUSE::ReadDir::from_string(std::string const &str_)
+{
+  if(_initialized)
+    {
+      std::shared_ptr<FUSE::ReadDirBase> tmp;
+
+      tmp = FUSE::ReadDirFactory::make(str_);
+      if(!tmp)
+        return -EINVAL;
+
       {
-      case ReadDir::ENUM::LINUX:
-        return FUSE::readdir_linux(cfg->branches,di->fusepath.c_str(),buf_);
-      default:
-      case ReadDir::ENUM::POSIX:
-        return FUSE::readdir_posix(cfg->branches,di->fusepath.c_str(),buf_);
+        std::lock_guard<std::mutex> lg(_mutex);
+
+        _type    = str_;
+        std::swap(_readdir,tmp);
       }
+    }
+  else
+    {
+      std::lock_guard<std::mutex> lg(_mutex);
+
+      if(!FUSE::ReadDirFactory::valid(str_))
+        return -EINVAL;
+
+      _type = str_;
+    }
+
+  return 0;
+}
+
+/*
+  Yeah... if not initialized it will crash... ¯\_(ツ)_/¯
+  This will be resolved once initialization of internal objects and
+  handling of input is better seperated.
+*/
+int
+FUSE::ReadDir::operator()(fuse_file_info_t const *ffi_,
+                          fuse_dirents_t         *buf_)
+{
+  std::shared_ptr<FUSE::ReadDirBase> readdir;
+
+  {
+    std::lock_guard<std::mutex> lg(_mutex);
+    readdir = _readdir;
   }
+
+  return (*readdir)(ffi_,buf_);
 }

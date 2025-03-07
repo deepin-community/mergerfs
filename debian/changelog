@@ -1,3 +1,52 @@
+mergerfs (2.40.2-5) unstable; urgency=medium
+
+  * Refresh patches
+  * Add patch to fix build on armel
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 31 Jan 2025 21:33:09 +0530
+
+mergerfs (2.40.2-4) unstable; urgency=medium
+
+  * Mandate Rules-Requires-Root: binary-targets (Closes: #1089386)
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Fri, 31 Jan 2025 17:34:53 +0530
+
+mergerfs (2.40.2-3) unstable; urgency=medium
+
+  * Disable the preload feature
+    - It breaks the `moveonenospc` functionality.
+    - It currently FTBFS on many architectures on Debian
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 24 Oct 2024 21:45:17 +0530
+
+mergerfs (2.40.2-2) unstable; urgency=medium
+
+  * Include NMU fixes missed out
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 17 Oct 2024 20:57:19 +0530
+
+mergerfs (2.40.2-1) unstable; urgency=medium
+
+  * New upstream version 2.40.2 (Closes: #1033303)
+  * Refresh patches
+  * Depend on ordered fuse versions (Closes: #1084429)
+  * Document the option about setuid-root on binary (Closes: 1037058)
+  * Drop the libfuse-dev build dependency
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Thu, 17 Oct 2024 20:33:01 +0530
+
+mergerfs (2.33.5-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * debian/copyright: use spaces rather than tabs to start continuation lines.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository-Browse.
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Ritesh Raj Sarraf ]
+  * Drop hardcoded runtime dependency on libfuse2 (Closes: 1068120)
+
+ -- Ritesh Raj Sarraf <rrs@debian.org>  Mon, 15 Apr 2024 20:27:59 +0530
+
 mergerfs (2.33.5-1) unstable; urgency=medium
 
   * New upstream version 2.33.5
