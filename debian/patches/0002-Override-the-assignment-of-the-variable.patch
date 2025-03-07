@@ -8,12 +8,10 @@ step
  Makefile | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index a779774..65c38d6 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -29,12 +29,13 @@ RPMBUILD  = rpmbuild
- GIT2DEBCL = ./tools/git2debcl
+@@ -29,12 +29,13 @@
+ GIT2DEBCL = ./buildtools/git2debcl
  PKGCONFIG = pkg-config
  
 -GIT_REPO = 0

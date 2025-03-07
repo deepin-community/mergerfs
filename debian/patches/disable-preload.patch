@@ -1,0 +1,17 @@
+Disable preload on Debian systems.
+
+For one, because:
+
+* It breaks the feature `moveonenospc`
+* Currently it FTBFS for preload on some architectures
+--- a/Makefile
++++ b/Makefile
+@@ -184,7 +184,7 @@
+ endif
+ 
+ .PHONY: install
+-install: install-base install-mount-tools install-preload install-man
++install: install-base install-mount-tools install-man
+ 
+ install-base: build/mergerfs
+ 	$(MKDIR) -p "$(INSTALLBINDIR)"

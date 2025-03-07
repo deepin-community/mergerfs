@@ -1,19 +1,30 @@
+Thursday 17 October 2024 08:42:12 PM IST
+========================================
+
+mergerfs: Mounting as non-root user fails with EPERM due to missing setuid bit
+
+For unprivileged users to be able to mount via fusermount, please explicitly
+add the setuid-root bit set on the mergerfs-fusermount binary
+
+For details, see DBug: 1037058
+
+
+========================================
 There are multiple use cases for mergerfs, most commonly for mixing
 multiple (hetrogeneous) file systems into one single union.
 
 A good example is unifying your /tmp over tmpfs and physical block.
 
-====================
+****************************************
 tmpfs   /ram-tmp        tmpfs   defaults        0       0
 
 /ram-tmp:/media/SSHD/tmp-disk:/disk-tmp      /tmp    fuse.mergerfs   x-systemd.requires=/media/SSHD,x-systemd.requires=/ram-tmp,defaults,use_ino,allow_other,default_permissions,nonempty,minfreespace=1G,category.create=all    0       0
-====================
+****************************************
 
 * In the above example, we first create a tmpfs based file system
 * We also have 2 block based file systems: /media/SSHD/tmp-disk and
 /disk-tmp
 * Using mergerfs, we create a unified output, exported over /tmp
-
 
 This allows for a fast and efficient tmpfs based /tmp, while at the
 same time helps you from running out of file system space, if your

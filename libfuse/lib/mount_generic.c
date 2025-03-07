@@ -64,7 +64,6 @@ struct mount_opts {
   int allow_other;
   int ishelp;
   int flags;
-  int nonempty;
   int auto_unmount;
   int blkdev;
   char *fsname;
@@ -78,17 +77,15 @@ struct mount_opts {
 #define FUSE_MOUNT_OPT(t, p) { t, offsetof(struct mount_opts, p), 1 }
 
 static const struct fuse_opt fuse_mount_opts[] = {
-  FUSE_MOUNT_OPT("allow_other",		allow_other),
-  FUSE_MOUNT_OPT("nonempty",		nonempty),
+  FUSE_MOUNT_OPT("allow_other",         allow_other),
   FUSE_MOUNT_OPT("blkdev",		blkdev),
-  FUSE_MOUNT_OPT("auto_unmount",		auto_unmount),
+  FUSE_MOUNT_OPT("auto_unmount",	auto_unmount),
   FUSE_MOUNT_OPT("fsname=%s",		fsname),
   FUSE_MOUNT_OPT("subtype=%s",		subtype),
-  FUSE_OPT_KEY("allow_other",		KEY_KERN_OPT),
-  FUSE_OPT_KEY("nonempty",		KEY_FUSERMOUNT_OPT),
+  FUSE_OPT_KEY("allow_other",           KEY_KERN_OPT),
   FUSE_OPT_KEY("auto_unmount",		KEY_FUSERMOUNT_OPT),
-  FUSE_OPT_KEY("blkdev",			KEY_FUSERMOUNT_OPT),
-  FUSE_OPT_KEY("fsname=",			KEY_FUSERMOUNT_OPT),
+  FUSE_OPT_KEY("blkdev",		KEY_FUSERMOUNT_OPT),
+  FUSE_OPT_KEY("fsname=",		KEY_FUSERMOUNT_OPT),
   FUSE_OPT_KEY("subtype=",		KEY_SUBTYPE_OPT),
   FUSE_OPT_KEY("large_read",		KEY_KERN_OPT),
   FUSE_OPT_KEY("blksize=",		KEY_KERN_OPT),
@@ -104,18 +101,18 @@ static const struct fuse_opt fuse_mount_opts[] = {
   FUSE_OPT_KEY("ro",			KEY_KERN_FLAG),
   FUSE_OPT_KEY("rw",			KEY_KERN_FLAG),
   FUSE_OPT_KEY("suid",			KEY_KERN_FLAG),
-  FUSE_OPT_KEY("nosuid",			KEY_KERN_FLAG),
+  FUSE_OPT_KEY("nosuid",		KEY_KERN_FLAG),
   FUSE_OPT_KEY("dev",			KEY_KERN_FLAG),
   FUSE_OPT_KEY("nodev",			KEY_KERN_FLAG),
   FUSE_OPT_KEY("exec",			KEY_KERN_FLAG),
-  FUSE_OPT_KEY("noexec",			KEY_KERN_FLAG),
+  FUSE_OPT_KEY("noexec",		KEY_KERN_FLAG),
   FUSE_OPT_KEY("async",			KEY_KERN_FLAG),
   FUSE_OPT_KEY("sync",			KEY_KERN_FLAG),
-  FUSE_OPT_KEY("dirsync",			KEY_KERN_FLAG),
+  FUSE_OPT_KEY("dirsync",		KEY_KERN_FLAG),
   FUSE_OPT_KEY("atime",			KEY_KERN_FLAG),
-  FUSE_OPT_KEY("noatime",			KEY_KERN_FLAG),
+  FUSE_OPT_KEY("noatime",		KEY_KERN_FLAG),
   FUSE_OPT_KEY("-h",			KEY_HELP),
-  FUSE_OPT_KEY("--help",			KEY_HELP),
+  FUSE_OPT_KEY("--help",		KEY_HELP),
   FUSE_OPT_KEY("-V",			KEY_VERSION),
   FUSE_OPT_KEY("--version",		KEY_VERSION),
   FUSE_OPT_END
@@ -124,9 +121,7 @@ static const struct fuse_opt fuse_mount_opts[] = {
 static void mount_help(void)
 {
   fprintf(stderr,
-          "    -o allow_other         allow access to other users\n"
           "    -o auto_unmount        auto unmount on process termination\n"
-          "    -o nonempty            allow mounts over non-empty file/dir\n"
           "    -o default_permissions enable permission checking by kernel\n"
           "    -o fsname=NAME         set filesystem name\n"
           "    -o subtype=NAME        set filesystem type\n"
@@ -422,13 +417,6 @@ static int fuse_mount_sys(const char *mnt, struct mount_opts *mo,
     fprintf(stderr ,"fuse: failed to access mountpoint %s: %s\n",
             mnt, strerror(errno));
     return -1;
-  }
-
-  if (!mo->nonempty) {
-    res = fuse_mnt_check_empty("fuse", mnt, stbuf.st_mode,
-                               stbuf.st_size);
-    if (res == -1)
-      return -1;
   }
 
   if (mo->auto_unmount) {

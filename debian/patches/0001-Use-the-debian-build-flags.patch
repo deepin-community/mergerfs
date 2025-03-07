@@ -21,7 +21,7 @@ build flags from the Debian build system are in use
  SRC	    = $(wildcard src/*.cpp)
  OBJS        = $(SRC:src/%.cpp=build/.src/%.o)
  DEPS        = $(SRC:src/%.cpp=build/.src/%.d)
-@@ -74,6 +77,7 @@
+@@ -78,6 +81,7 @@
                -std=c++11 \
                $(STATIC_FLAGS) \
                $(LTO_FLAGS) \
@@ -29,11 +29,11 @@ build flags from the Debian build system are in use
                -Wall \
                -Wno-unused-result \
                -MMD
-@@ -90,6 +94,7 @@
+@@ -93,6 +97,7 @@
  
  LDFLAGS := \
      ${LDFLAGS} \
 +    $(HARDENING_LDFLAGS) \
      -pthread \
+     -latomic \
      -lrt
- 
